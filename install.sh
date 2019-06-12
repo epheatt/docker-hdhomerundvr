@@ -25,6 +25,38 @@ if [[ $(cat /etc/timezone) != $TZ ]] ; then
 fi
 EOT
 
+cat <<'EOT' > /supervisord.conf
+[supervisord]
+nodaemon=false
+
+[program:hdhomerun_dvr]
+priority=30
+directory=/opt/hdhomerun/
+command=/opt/hdhomerun/hdhomerun_record_x64 foreground
+user=root
+autostart=true
+autorestart=true
+stopsignal=QUIT
+stdout_logfile=/dev/stdout
+stdout_logfile_maxbytes=0
+stderr_logfile=/dev/stderr
+stderr_logfile_maxbytes=0
+
+[unix_http_server]
+file=%(here)s/supervisor.sock
+
+[supervisorctl]
+serverurl=unix://%(here)s/supervisor.sock
+
+[rpcinterface:supervisor]
+supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface
+EOT
+
+cat <<'EOT' > /etc/hdhomerun.conf
+RecordPath=/hdhomerun
+Port=65002
+EOT
+
 chmod -R +x /etc/service/ /etc/my_init.d/
 
 #########################################
