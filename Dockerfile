@@ -13,7 +13,7 @@ ENV HOME="/root" LC_ALL="C.UTF-8" LANG="en_US.UTF-8" LANGUAGE="en_US.UTF-8"
 CMD ["/sbin/my_init"]
 
 RUN mkdir -p /opt/hdhomerun && \
-	curl http://download.silicondust.com/hdhomerun/hdhomerun_record_linux_20190417 -o /opt/hdhomerun/hdhomerun_record_x64 
+	curl http://download.silicondust.com/hdhomerun/hdhomerun_record_linux_20190621 -o /opt/hdhomerun/hdhomerun_record_x64 
 
 #########################################
 ##         RUN INSTALL SCRIPT          ##
